@@ -1,0 +1,23 @@
+{
+  "name": "differo",
+  "version": "0.0.1",
+  "description": "Visual Regression Testing for modern websites",
+  "main": "lib/api.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alepez/differo.git"
+  },
+  "keywords": [
+    "visual regression",
+    "test"
+  ],
+  "author": "Alessandro Pezzato <alessandro.pezzato@gmail.com> (http://pezzato.net)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/alepez/differo/issues"
+  },
+  "homepage": "https://github.com/alepez/differo#readme"
+}
