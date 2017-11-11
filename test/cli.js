@@ -1,25 +1,30 @@
 const { CLI } = require('../lib/cli.js');
 const { expect } = require('chai');
+const sinon = require('sinon');
 
 const DifferoMock = function () {
-  this.state = '';
-  this.screenshot = (o) => this.state = 'screenshot:' + o.url;
+  this.screenshot = sinon.spy();
 };
 
 describe('CLI', () => {
   it('Should write usage', () => {
-    let out;
+    const differo = new DifferoMock();
+    const write = sinon.spy();
+
     const cli = new CLI({
       argv: ['--help'],
-      write: (text) => out = text,
+      write,
+      differo,
     });
 
     cli.run();
-    expect(out).to.be.a.string;
-    expect(out.split('\n')[0]).to.equal('Usage: differo [OPTION]... [URL]');
+    expect(write.calledOnce).to.be.true;
+    expect(write.getCall(0).args[0]).to.equal(`Usage: differo [OPTION]... [URL]
+      --help     display this help and exit
+`);
   });
 
-  it.only('Should take screenshot', () => {
+  it('Should take screenshot', () => {
     const differo = new DifferoMock();
 
     const cli = new CLI({
@@ -28,6 +33,7 @@ describe('CLI', () => {
     });
 
     cli.run();
-    expect(differo.state).to.equal('screenshot:http://localhost:9222')
+    console.log(differo.screenshot.getCall(0).args);
+    expect(differo.screenshot.calledWith([{ url: 'http://localhost:9222' }]))
   });
 });
