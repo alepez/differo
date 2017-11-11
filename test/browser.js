@@ -3,25 +3,19 @@ const { expect } = require('chai');
 
 describe('Browser', () => {
   it('Should connect', async () => {
-    const browser = new Browser({
-      host: 'localhost',
-      port: 9222,
-    });
+    const browser = new Browser();
 
     /* This should not throw */
-    await browser.connect();
+    await browser.connect({ host: 'localhost', port: 9222, });
 
     await browser.close();
   });
 
   it('Should throw exception if cannot connect', async () => {
-    const browser = new Browser({
-      host: 'localhost',
-      port: 9221,
-    });
+    const browser = new Browser();
 
     try {
-      await browser.connect();
+      await browser.connect({ host: 'localhost', port: 9221, });
     } catch (e) {
       expect(e).to.be.an.instanceof(Error);
       return;
@@ -33,12 +27,9 @@ describe('Browser', () => {
 });
 
 describe('A connected browser', async () => {
-  const browser = new Browser({
-    host: 'localhost',
-    port: 9222,
-  });
+  const browser = new Browser();
 
-  before(() => browser.connect());
+  before(() => browser.connect({ host: 'localhost', port: 9222, }));
   after(() => browser.close());
 
   it('Should load a page', async () => {

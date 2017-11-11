@@ -3,13 +3,13 @@ const { expect } = require('chai');
 const sinon = require('sinon');
 const helpText = require('../lib/help.js').text;
 
-const DifferoMock = function () {
+const Differo = function () {
   this.screenshot = sinon.spy();
 };
 
 describe('CLI', () => {
   it('Should write usage', () => {
-    const differo = new DifferoMock();
+    const differo = new Differo();
     const write = sinon.spy();
 
     const cli = new CLI({
@@ -24,7 +24,7 @@ describe('CLI', () => {
   });
 
   it('Should take screenshot', () => {
-    const differo = new DifferoMock();
+    const differo = new Differo();
 
     const cli = new CLI({
       differo,
