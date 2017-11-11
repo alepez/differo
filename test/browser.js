@@ -45,4 +45,12 @@ describe('A connected browser', async () => {
     /* This url should be loaded successfully */
     await browser.load('http://localhost:9222');
   });
+
+  it('Should capture a screenshot as png Buffer', async () => {
+    /* This url should be loaded successfully */
+    await browser.load('http://localhost:9222');
+    const pngData = await browser.captureScreenshot();
+    expect(pngData).to.be.an.instanceof(Buffer);
+    expect(pngData.slice(1, 4).toString()).to.equal('PNG');
+  });
 });
