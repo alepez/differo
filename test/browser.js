@@ -29,4 +29,20 @@ describe('Browser', () => {
 
     throw new Error("Should have thrown");
   });
+
+});
+
+describe('A connected browser', async () => {
+  const browser = new Browser({
+    host: 'localhost',
+    port: 9222,
+  });
+
+  before(() => browser.connect());
+  after(() => browser.close());
+
+  it('Should load a page', async () => {
+    /* This url should be loaded successfully */
+    await browser.load('http://localhost:9222');
+  });
 });
