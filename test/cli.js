@@ -5,6 +5,13 @@ const helpText = require('../lib/help.js').text;
 
 const Differo = function () {
   this.screenshot = sinon.spy();
+  this.rebase = sinon.spy();
+  this.setImageWriter = sinon.spy();
+};
+
+const Browser = function () {
+  this.close = sinon.spy();
+  this.connect = sinon.spy();
 };
 
 describe('CLI', () => {
@@ -23,15 +30,33 @@ describe('CLI', () => {
     expect(write.getCall(0).args[0]).to.equal(helpText);
   });
 
-  it('Should take screenshot', () => {
+  it('Should take screenshot', async () => {
     const differo = new Differo();
+    const browser = new Browser();
 
     const cli = new CLI({
       differo,
-      argv: ['--screenshot', '--url', 'http://localhost:9222']
+      browser,
+      argv: ['--screenshot', '--url', 'http://localhost:9222', '--name', 'ciao']
     });
 
-    cli.run();
-    expect(differo.screenshot.calledWith([{ url: 'http://localhost:9222' }]))
+    await cli.run();
+    expect(differo.screenshot.calledOnce).to.be.true;
+    expect(differo.screenshot.calledWith([{ url: 'http://localhost:9222', name: 'ciao' }]))
+  });
+
+  it('Should rebase screenshot', async () => {
+    const differo = new Differo();
+    const browser = new Browser();
+
+    const cli = new CLI({
+      differo,
+      browser,
+      argv: ['--rebase', '--url', 'http://localhost:9222', '--name', 'ciao']
+    });
+
+    await cli.run();
+    expect(differo.rebase.calledOnce).to.be.true;
+    expect(differo.rebase.calledWith([{ url: 'http://localhost:9222', name: 'ciao' }]))
   });
 });

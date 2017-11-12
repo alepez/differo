@@ -16,6 +16,12 @@ describe('Differo', async () => {
   const imageWriter = new ImageWriter();
   const differo = new Differo({ browser, imageWriter });
 
+  beforeEach(() => {
+    browser.load.reset();
+    browser.captureScreenshot.reset();
+    imageWriter.write.reset();
+  });
+
   it('Should take a screenshot using browser captureScreenshot and save it with ImageWriter', async () => {
     await differo.screenshot({ url: 'http://localhost', name: 'foo' });
     expect(browser.load.calledOnce).to.be.true;
@@ -23,5 +29,15 @@ describe('Differo', async () => {
     expect(browser.captureScreenshot.calledOnce).to.be.true;
     expect(browser.captureScreenshot.getCall(0).args).to.eql([]);
     expect(imageWriter.write.calledOnce).to.be.true;
+  });
+
+  it('Should rebase and save it with ImageWriter', async () => {
+    await differo.rebase({ url: 'http://localhost', name: 'foo' });
+    expect(browser.load.calledOnce).to.be.true;
+    expect(browser.load.getCall(0).args).to.eql(['http://localhost']);
+    expect(browser.captureScreenshot.calledOnce).to.be.true;
+    expect(browser.captureScreenshot.getCall(0).args).to.eql([]);
+    expect(imageWriter.write.calledOnce).to.be.true;
+    expect(imageWriter.write.getCall(0).args[0].overrideSuffix).to.equal('.base');
   });
 });
