@@ -1,4 +1,4 @@
-const { Differo } = require('../lib/differo.js');
+const { Differo, BASE_SUFFIX } = require('../lib/differo.js');
 const { expect } = require('chai');
 const sinon = require('sinon');
 
@@ -38,6 +38,6 @@ describe('Differo', async () => {
     expect(browser.captureScreenshot.calledOnce).to.be.true;
     expect(browser.captureScreenshot.getCall(0).args).to.eql([]);
     expect(imageWriter.write.calledOnce).to.be.true;
-    expect(imageWriter.write.getCall(0).args[0].overrideSuffix).to.equal('.base');
+    expect(imageWriter.write.getCall(0).args[0].overrideSuffix).to.equal(BASE_SUFFIX);
   });
 });
