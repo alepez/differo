@@ -9,12 +9,18 @@ const Browser = function () {
 
 const ImageWriter = function () {
   this.write = sinon.spy();
+  this.filename = sinon.spy();
+};
+
+const Comparator = function () {
+  this.compare = () => ({ equal: true, mismatch: 0, pngStream: null })
 };
 
 describe('Differo', async () => {
   const browser = new Browser();
   const imageWriter = new ImageWriter();
-  const differo = new Differo({ browser, imageWriter });
+  const comparator = new Comparator();
+  const differo = new Differo({ browser, imageWriter, comparator });
 
   beforeEach(() => {
     browser.load.reset();
