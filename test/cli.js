@@ -6,6 +6,7 @@ const helpText = require('../lib/help.js').text;
 const Differo = function () {
   this.screenshot = sinon.spy();
   this.rebase = sinon.spy();
+  this.diff = sinon.spy();
   this.setImageWriter = sinon.spy();
 };
 
@@ -58,5 +59,20 @@ describe('CLI', () => {
     await cli.run();
     expect(differo.rebase.calledOnce).to.be.true;
     expect(differo.rebase.calledWith([{ url: 'http://localhost:9222', name: 'ciao' }]))
+  });
+
+  it('Should diff screenshot', async () => {
+    const differo = new Differo();
+    const browser = new Browser();
+
+    const cli = new CLI({
+      differo,
+      browser,
+      argv: ['--diff', '--url', 'http://localhost:9222', '--name', 'ciao']
+    });
+
+    await cli.run();
+    expect(differo.diff.calledOnce).to.be.true;
+    expect(differo.diff.calledWith([{ url: 'http://localhost:9222', name: 'ciao' }]))
   });
 });
