@@ -23,9 +23,9 @@ describe('ImageWriter', () => {
   });
 
   it('Should write a png buffer to a file', async () => {
-    const src = new Buffer('00', 'hex');
+    const image = new Buffer('00', 'hex');
     const name = 'test';
-    await imageWriter.write({ src, name });
+    await imageWriter.write({ image, name });
     expect(writeFun.calledOnce).to.be.true;
     expect(writeFun.getCall(0).args[0]).to.eql('test.png');
   });
