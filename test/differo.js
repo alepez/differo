@@ -13,7 +13,7 @@ const ImageWriter = function () {
 };
 
 const Comparator = function () {
-  this.compare = () => ({ equal: true, mismatch: 0, pngStream: null })
+  this.compare = () => ({ equal: true, mismatchRatio: 0, pngStream: null })
 };
 
 describe('Differo', async () => {
