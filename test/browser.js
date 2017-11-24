@@ -33,6 +33,11 @@ describe('Browser', () => {
 });
 
 describe('A connected browser', async () => {
+  const chrome = new Chrome();
+
+  before(() => chrome.start({ userDataDir: true }));
+  after(() => chrome.stop());
+
   const browser = new Browser();
 
   before(() => browser.connect({ host: 'localhost', port: 9222, }));
