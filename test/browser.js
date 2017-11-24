@@ -1,7 +1,13 @@
 const { Browser } = require('../lib/browser.js');
+const { Chrome } = require('../lib/chrome.js');
 const { expect } = require('chai');
 
 describe('Browser', () => {
+  const chrome = new Chrome();
+
+  before(() => chrome.start({ userDataDir: true }));
+  after(() => chrome.stop());
+
   it('Should connect', async () => {
     const browser = new Browser();
 

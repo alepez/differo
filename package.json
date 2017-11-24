@@ -25,6 +25,7 @@
   "homepage": "https://github.com/alepez/differo#readme",
   "dependencies": {
     "chrome-remote-interface": "^0.24.2",
+    "fs-extra": "^4.0.2",
     "minimist": "^1.2.0",
     "resemble": "^1.4.0"
   },
