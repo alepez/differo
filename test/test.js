@@ -1,7 +1,7 @@
 const { Test, Result } = require('../lib/test.js');
 const { expect } = require('chai');
 
-describe.only('Test', () => {
+describe('Test', () => {
   it('Should run and return a result', async () => {
     const test = new Test({ name: 'foo' });
     expect(test.getName()).to.equal('foo');
