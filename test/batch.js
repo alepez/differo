@@ -7,7 +7,7 @@ const Test = function (data) {
   this.name = data.name;
 };
 
-describe.only('Batch', () => {
+describe('Batch', () => {
   it('Should throw if data is of wrong type', () => {
     expect(() => {
       new Batch({ data: 1 });
